@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>iisnode logs</title>
+    <style type="text/css">
+        body
+        {
+            font-family: "Trebuchet MS" , Arial, Helvetica, sans-serif;
+        }
+        table
+        {
+            border-collapse: collapse;
+        }
+        td, th
+        {
+            border: 1px solid lightgray;
+            padding: 3px 7px 2px 7px;
+        }
+        th
+        {
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: Gray;
+            color: #ffffff;
+        }
+        td.stderr
+        {
+            color: Red;
+        }
+    </style>
+</head>
+<body>
+    <table id="logFilesTable">
+        <tr>
+            <th>
+                Computer name
+            </th>
+            <th>
+                PID
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
+    </table>
+    <p id="lastUpdated"></p>
+    <script type="text/javascript">
+
+        // this is replaced with actual data at runtime by code in interceptor.js
+        var logFiles = [{"file":"SPC-F42642-12480-stdout-1753067672504.txt","computername":"SPC-F42642","pid":12480,"type":"stdout","created":1753067672504},{"file":"SPC-F42642-14444-stderr-1752806272749.txt","computername":"SPC-F42642","pid":14444,"type":"stderr","created":1752806272749},{"file":"SPC-F42642-14444-stdout-1752806272748.txt","computername":"SPC-F42642","pid":14444,"type":"stdout","created":1752806272748},{"file":"SPC-F42642-17940-stdout-1753071833371.txt","computername":"SPC-F42642","pid":17940,"type":"stdout","created":1753071833371},{"file":"SPC-F42642-23560-stderr-1753081180780.txt","computername":"SPC-F42642","pid":23560,"type":"stderr","created":1753081180780},{"file":"SPC-F42642-23560-stdout-1753081180776.txt","computername":"SPC-F42642","pid":23560,"type":"stdout","created":1753081180776},{"file":"SPC-F42642-24796-stderr-1752741130969.txt","computername":"SPC-F42642","pid":24796,"type":"stderr","created":1752741130969},{"file":"SPC-F42642-24796-stdout-1752741130968.txt","computername":"SPC-F42642","pid":24796,"type":"stdout","created":1752741130968},{"file":"SPC-F42642-24884-stderr-1752800599153.txt","computername":"SPC-F42642","pid":24884,"type":"stderr","created":1752800599153},{"file":"SPC-F42642-24884-stdout-1752800599147.txt","computername":"SPC-F42642","pid":24884,"type":"stdout","created":1752800599147},{"file":"SPC-F42642-2876-stderr-1752743921725.txt","computername":"SPC-F42642","pid":2876,"type":"stderr","created":1752743921725},{"file":"SPC-F42642-2876-stdout-1752743921724.txt","computername":"SPC-F42642","pid":2876,"type":"stdout","created":1752743921724},{"file":"SPC-F42642-30108-stdout-1753063716125.txt","computername":"SPC-F42642","pid":30108,"type":"stdout","created":1753063716125},{"file":"SPC-F42642-30516-stdout-1752822124825.txt","computername":"SPC-F42642","pid":30516,"type":"stdout","created":1752822124825},{"file":"SPC-F42642-31484-stderr-1753060808744.txt","computername":"SPC-F42642","pid":31484,"type":"stderr","created":1753060808744},{"file":"SPC-F42642-31484-stdout-1753060808741.txt","computername":"SPC-F42642","pid":31484,"type":"stdout","created":1753060808741},{"file":"SPC-F42642-32004-stderr-1752740661778.txt","computername":"SPC-F42642","pid":32004,"type":"stderr","created":1752740661778},{"file":"SPC-F42642-32004-stdout-1752740661777.txt","computername":"SPC-F42642","pid":32004,"type":"stdout","created":1752740661777},{"file":"SPC-F42642-3488-stdout-1752830564305.txt","computername":"SPC-F42642","pid":3488,"type":"stdout","created":1752830564305},{"file":"SPC-F42642-35388-stdout-1752742502705.txt","computername":"SPC-F42642","pid":35388,"type":"stdout","created":1752742502705},{"file":"SPC-F42642-37932-stdout-1752814275530.txt","computername":"SPC-F42642","pid":37932,"type":"stdout","created":1752814275530},{"file":"SPC-F42642-40500-stdout-1752825333160.txt","computername":"SPC-F42642","pid":40500,"type":"stdout","created":1752825333160}];
+        var lastUpdated = 1753081195969;
+        var date = new Date();
+
+        date.setTime(lastUpdated);
+        document.getElementById('lastUpdated').innerHTML = 'Index was last updated ' + date;
+
+        logFiles.sort(function (a, b) {
+            return b.created - a.created;
+        });
+
+        var logFilesTable = document.getElementById("logFilesTable");
+        for (var i = 0; i < logFiles.length; i++) {
+            var logFile = logFiles[i];
+            date.setTime(logFile.created);
+            var row = logFilesTable.insertRow(-1);
+            var computerNameCell = row.insertCell(0);
+            var pidCell = row.insertCell(1);
+            var typeCell = row.insertCell(2);
+            var dateCell = row.insertCell(3);
+            var logCell = row.insertCell(4);
+            computerNameCell.innerHTML = logFile.computername;
+            pidCell.innerHTML = logFile.pid.toString();
+            typeCell.innerHTML = logFile.type;
+            typeCell.setAttribute('class', logFile.type);
+            dateCell.innerHTML = date.toString();
+            logCell.innerHTML = '<a href="' + logFile.file + '">log</a>';
+        };
+
+    </script>
+</body>
+</html>
